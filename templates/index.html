@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #060505;
+        }
+        h1 {
+            color: #ae0aab;
+        }
+        h2 { 
+            color: #ae0aab;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            color: #ae0aab;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Diabetes Prediction Model</h1>
+    <form action="/predict" method="post" id="predictionForm">
+        <div class="form-group">
+            <label for="Age">Age:</label>
+            <input type="number" id="Age" name="Age" placeholder="How old are you?" required>
+        </div>
+        <div class="form-group">
+            <label for="Gender">Gender:</label>
+            <select id="Gender" name="Gender" placeholder="Choose your gender" required>
+                <option value="" disabled selected>Select your gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <h2>Symptoms</h2>
+        <div class="form-group">
+            <label for="Polyuria">Polyuria:</label>
+            <select id="Polyuria" name="Polyuria" required>
+                <option value="" disabled selected>Do you pee a lot?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Polydipsia">Polydipsia:</label>
+            <select id="Polydipsia" name="Polydipsia" required>
+                <option value="" disabled selected>Do you get thirsty quite often?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="sudden weight loss">Sudden Weight Loss:</label>
+            <select id="sudden weight loss" name="sudden weight loss" required>
+                <option value="" disabled selected>Have you suddenly lost weight recently?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="weakness">Weakness:</label>
+            <select id="weakness" name="weakness" required>
+                <option value="" disabled selected>Do you get weak a lot?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Polyphagia">Polyphagia:</label>
+            <select id="Polyphagia" name="Polyphagia" required>
+                <option value="" disabled selected>Do you feel an extreme, insatiable hunger?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Genital thrush">Genital Thrush:</label>
+            <select id="Genital thrush" name="Genital thrush" required>
+                <option value="" disabled selected>Does your genital itch a lot?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="visual blurring">Visual Blurring:</label>
+            <select id="visual blurring" name="visual blurring" required>
+                <option value="" disabled selected>Do you have difficulty seeing clearly?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Itching">Itching:</label>
+            <select id="Itching" name="Itching" required>
+                <option value="" disabled selected>Does your body itch?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Irritability">Irritability:</label>
+            <select id="Irritability" name="Irritability" required>
+                <option value="" disabled selected>Do you feel irritable, confused and not yourself?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="delayed healing">Delayed Healing:</label>
+            <select id="delayed healing" name="delayed healing" required>
+                <option value="" disabled selected>Do your wounds heal slowly or don't heal at all?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="partial paresis">Partial Paresis:</label>
+            <select id="partial paresis" name="partial paresis" required>
+                <option value="" disabled selected>Do you have muscle movement is weakened, amost like you're paralyzed?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="muscle stiffness">Muscle Stiffness:</label>
+            <select id="muscle stiffness" name="muscle stiffness" required>
+                <option value="" disabled selected>Do you feel or sense pain or tightness in your muscles?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Alopecia">Alopecia:</label>
+            <select id="Alopecia" name="Alopecia" required>
+                <option value="" disabled selected>Are you experiencing hair loss?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Obesity">Obesity:</label>
+            <select id="Obesity" name="Obesity" required>
+                <option value="" disabled selected>Do you feel overweight or obese?</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        // document.getElementById('predictionForm').addEventListener('submit', function(event) {
+        //     event.preventDefault();
+
+        //     const age = document.getElementById('age').value;
+        //     const gender = document.getElementById('gender').value === 'male' ? 1 : 0;
+        //     const polyuria = document.getElementById('polyuria').value === 'yes' ? 1 : 0;
+        //     const polydipsia = document.getElementById('polydipsia').value === 'yes' ? 1 : 0;
+        //     const suddenWeightLoss = document.getElementById('sudden_weight_loss').value === 'yes' ? 1 : 0;
+        //     const weakness = document.getElementById('weakness').value === 'yes' ? 1 : 0;
+        //     const polyphagia = document.getElementById('polyphagia').value === 'yes' ? 1 : 0;
+        //     const genitalThrush = document.getElementById('genital_thrush').value === 'yes' ? 1 : 0;
+        //     const visualBlurring = document.getElementById('visual_blurring').value === 'yes' ? 1 : 0;
+        //     const itching = document.getElementById('itching').value === 'yes' ? 1 : 0;
+        //     const irritability = document.getElementById('irritability').value === 'yes' ? 1 : 0;
+        //     const delayedHealing = document.getElementById('delayed_healing').value === 'yes' ? 1 : 0;
+        //     const partialParesis = document.getElementById('partial_paresis').value === 'yes' ? 1 : 0;
+        //     const muscleStiffness = document.getElementById('muscle_stiffness').value === 'yes' ? 1 : 0;
+        //     const alopecia = document.getElementById('alopecia').value === 'yes' ? 1 : 0;
+        //     const obesity = document.getElementById('obesity').value === 'yes' ? 1 : 0;
+
+
+        // });
+    </script>
+
+</body>
+</html>
+
